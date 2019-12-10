@@ -19,6 +19,7 @@ package java.nio;
 
 import elemental2.core.ArrayBuffer;
 import elemental2.core.ArrayBufferView;
+import elemental2.core.Float64Array;
 import elemental2.core.Int8Array;
 import org.gwtproject.nio.HasArrayBufferView;
 import org.gwtproject.nio.TypedArrayHelper;
@@ -376,7 +377,14 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
      * @exception BufferUnderflowException if the position is greater than {@code limit - 8}.
      */
     public final double getDouble () {
-        return Numbers.longBitsToDouble(getLong());
+        int newPosition = position() + 8;
+//if (newPosition > limit) {
+//throw new BufferUnderflowException();
+//}
+
+        double value = getDouble(position());
+        position = newPosition;
+        return value;
     }
 
     /** Returns the double at the specified index.
@@ -388,7 +396,7 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
      * @exception IndexOutOfBoundsException if {@code index} is invalid.
      */
     public final double getDouble (int index) {
-        return Numbers.longBitsToDouble(getLong(index));
+        return Numbers.readDoubleBytes(byteArray, index, order);
     }
 
     /** Returns the float at the current position and increases the position by 4.
@@ -723,7 +731,13 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
      * @exception ReadOnlyBufferException if no changes may be made to the contents of this buffer.
      */
     public ByteBuffer putDouble (double value) {
-        return putLong(Numbers.doubleToRawLongBits(value));
+        int newPosition = position() + 8;
+//if (newPosition > limit) {
+//throw new BufferOverflowException();
+//}
+        putDouble(position(), value);
+        position = newPosition;
+        return this;
     }
 
     /** Writes the given double to the specified index of this buffer.
@@ -738,7 +752,8 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
      * @exception ReadOnlyBufferException if no changes may be made to the contents of this buffer.
      */
     public ByteBuffer putDouble (int index, double value) {
-        return putLong(index, Numbers.doubleToRawLongBits(value));
+        Numbers.writeDoubleBytes(byteArray, index, value, order);
+        return this;
     }
 
     /** Writes the given float to the current position and increases the position by 4.

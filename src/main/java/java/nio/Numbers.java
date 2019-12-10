@@ -37,11 +37,11 @@ class Numbers {
     }
 
     public static final double longBitsToDouble(long i) {
-        throw new RuntimeException("longBitsToDouble NYI");
+        return Double.longBitsToDouble(i);
     }
 
     public static final long doubleToRawLongBits(double i) {
-        throw new RuntimeException("doubleToRawLongBits NYI");
+        return Double.doubleToLongBits(i);
     }
 
     // TODO(jgw): Ugly hack to avoid longs.
@@ -67,5 +67,29 @@ class Numbers {
 
     public static final void setHiInt(int i) {
         wia.setAt(1, (double)i);
+    }
+
+    /**
+     * Helper which writes a double value to the common buffer, then copies the specific
+     * bytes back to the specified array at the given offset.
+     */
+    public static final void writeDoubleBytes(Int8Array byteArray, int offset, double value, ByteOrder order) {
+        //TODO compare order with nativeOrder, if they don't match then copy data backward
+        wda.setAt(0, value);
+        for (int i = 0; i < 8; i++) {
+            byteArray.setAt(i + offset, wba.getAt(i));
+        }
+    }
+
+    /**
+     * Helper which copies the specified bytes to the common buffer, then reads out
+     * the double value that those bytes represent.
+     */
+    public static final double readDoubleBytes(Int8Array byteArray, int offset, ByteOrder order) {
+        //TODO compare order with nativeOrder, if they don't match then copy data backward
+        for (int i = 0; i < 8; i++) {
+            wba.setAt(i, byteArray.getAt(offset + i));
+        }
+        return wda.getAt(0);
     }
 }
