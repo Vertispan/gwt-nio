@@ -7,6 +7,10 @@
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <name>gwt-nio</name>
+    <description>J2CL/GWT support for java.nio packages</description>
+    <inceptionYear>2019</inceptionYear>
+
     <licenses>
         <license>
             <name>Apache License Version 2.0</name>
@@ -15,11 +19,27 @@
         </license>
     </licenses>
 
+
+    <scm>
+        <connection>scm:git:git://github.com/vertispan/gwt-nio.git</connection>
+        <developerConnection>scm:git:ssh://github.com:vertispan/gwt-nio.git</developerConnection>
+        <url>https://github.com/vertispan/gwt-nio/tree/master</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Colin Alworth</name>
+            <email>colin@vertispan.com</email>
+        </developer>
+    </developers>
+
+    <url>http://www.gwtproject.org/</url>
+
     <dependencies>
         <dependency>
             <groupId>com.google.elemental2</groupId>
             <artifactId>elemental2-core</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.0-RC1</version>
         </dependency>
     </dependencies>
 
@@ -52,6 +72,25 @@
             </plugin>
         </plugins>
     </build>
+
+    <!-- Specify that we will push snapshots and releases to sonatype's repos -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
 
     <profiles>
         <!-- release profile to create sources, javadoc, and sign all artifacts before uploading -->
