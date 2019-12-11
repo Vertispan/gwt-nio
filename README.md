@@ -20,3 +20,6 @@ directions of wrapping and unwrapping.
 
 The interface `TypedArrayHelper.Wrapper` still exists, but its use
 is discouraged.
+
+
+#### Take care in forking this repository, we may rewrite history to remove unrelated PlayN commits.
