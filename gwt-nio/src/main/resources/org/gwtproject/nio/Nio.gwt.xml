@@ -6,7 +6,6 @@
   <inherits name='elemental2.webstorage.WebStorage'/>
 
   <inherits name='com.google.gwt.corp.compatibility.Numbers'/>
-  <inherits name='java.io.Io'/>
   <inherits name='java.nio.Nio'/>
   <inherits name='org.apache.harmony.luni.platform.Endianness'/>
 

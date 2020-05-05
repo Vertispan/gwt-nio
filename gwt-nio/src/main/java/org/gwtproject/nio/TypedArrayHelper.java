@@ -31,6 +31,7 @@ public class TypedArrayHelper {
     public static ByteBuffer wrap(ArrayBuffer ab) {
         return new DirectReadWriteByteBuffer(ab);
     }
+
     public static ArrayBufferView unwrap(ByteBuffer bb) {
         return Js.<DirectByteBuffer>uncheckedCast(bb).getTypedArray();
     }

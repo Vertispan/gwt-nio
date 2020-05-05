@@ -13,50 +13,52 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.gwtproject.nio.client;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+import java.nio.ReadOnlyBufferException;
 
-public class DirectCharBufferTest extends CharBufferTest {
+public class ReadOnlyHeapByteBufferTest extends HeapByteBufferTest {
 
   public void gwtSetUp() {
-    capacity = BUFFER_LENGTH;
-    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH * 2).asCharBuffer();
-    loadTestData1(buf);
+    super.gwtSetUp();
+    buf = buf.asReadOnlyBuffer();
     baseBuf = buf;
   }
 
-  public void gwtTearDown() {
-    buf = null;
-    baseBuf = null;
-  }
-
-  public void testHasArray() {
-    assertFalse(buf.hasArray());
-  }
-
-  public void testArray() {
-    try {
-      buf.array();
-      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
-    } catch (UnsupportedOperationException e) {
-    }
+  public void testIsReadOnly() {
+    assertTrue(buf.isReadOnly());
   }
 
   public void testArrayOffset() {
     try {
       buf.arrayOffset();
-      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
-    } catch (UnsupportedOperationException e) {
+      fail("Should throw ReadOnlyBufferException"); // $NON-NLS-1$
+    } catch (ReadOnlyBufferException e) {
+      // expected
     }
   }
 
-  public void testIsDirect() {
-    assertTrue(buf.isDirect());
+  public void testHasArray() {
+    assertFalse(buf.hasArray());
+    try {
+      buf.array();
+      fail("Should throw Exception"); // $NON-NLS-1$
+    } catch (ReadOnlyBufferException e) {
+      // expected
+    }
   }
 
-  public void testOrder() {
-    assertEquals(ByteOrder.BIG_ENDIAN, buf.order());
+  public void testHashCode() {
+    super.readOnlyHashCode(false);
+  }
+
+  public void testArray() {
+    try {
+      buf.array();
+      fail("Should throw ReadOnlyBufferException"); // $NON-NLS-1$
+    } catch (ReadOnlyBufferException e) {
+      // expected
+    }
   }
 }

@@ -20,48 +20,48 @@ import java.nio.ByteOrder;
 
 public class DirectDoubleBufferTest extends DoubleBufferTest {
 
-    @Override
-    public String getModuleName() {
-        return "org.gwtproject.nio.NIOTest";
-    }
+  @Override
+  public String getModuleName() {
+    return "org.gwtproject.nio.NIOTest";
+  }
 
-    public void gwtSetUp() {
-        capacity = BUFFER_LENGTH;
-        buf = ByteBuffer.allocateDirect(BUFFER_LENGTH * 8).asDoubleBuffer();
-        loadTestData1(buf);
-        baseBuf = buf;
-    }
+  public void gwtSetUp() {
+    capacity = BUFFER_LENGTH;
+    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH * 8).asDoubleBuffer();
+    loadTestData1(buf);
+    baseBuf = buf;
+  }
 
-    public void gwtTearDown() {
-        buf = null;
-        baseBuf = null;
-    }
+  public void gwtTearDown() {
+    buf = null;
+    baseBuf = null;
+  }
 
-    public void testArray() {
-        try {
-            buf.array();
-            fail("Should throw UnsupportedOperationException"); //$NON-NLS-1$
-        } catch (UnsupportedOperationException e) {
-        }
+  public void testArray() {
+    try {
+      buf.array();
+      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
+    } catch (UnsupportedOperationException e) {
     }
+  }
 
-    public void testArrayOffset() {
-        try {
-            buf.arrayOffset();
-            fail("Should throw UnsupportedOperationException"); //$NON-NLS-1$
-        } catch (UnsupportedOperationException e) {
-        }
+  public void testArrayOffset() {
+    try {
+      buf.arrayOffset();
+      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
+    } catch (UnsupportedOperationException e) {
     }
+  }
 
-    public void testHasArray() {
-        assertFalse(buf.hasArray());
-    }
+  public void testHasArray() {
+    assertFalse(buf.hasArray());
+  }
 
-    public void testIsDirect() {
-        assertTrue(buf.isDirect());
-    }
+  public void testIsDirect() {
+    assertTrue(buf.isDirect());
+  }
 
-    public void testOrder() {
-        assertEquals(ByteOrder.BIG_ENDIAN, buf.order());
-    }
+  public void testOrder() {
+    assertEquals(ByteOrder.BIG_ENDIAN, buf.order());
+  }
 }

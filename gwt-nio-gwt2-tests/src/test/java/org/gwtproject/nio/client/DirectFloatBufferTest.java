@@ -4,9 +4,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -20,49 +20,49 @@ import java.nio.ByteOrder;
 
 public class DirectFloatBufferTest extends FloatBufferTest {
 
-    @Override
-    public String getModuleName() {
-        return "org.gwtproject.nio.NIOTest";
-    }
+  @Override
+  public String getModuleName() {
+    return "org.gwtproject.nio.NIOTest";
+  }
 
-    public void gwtSetUp() {
-        capacity = BUFFER_LENGTH;
-        buf = ByteBuffer.allocateDirect(BUFFER_LENGTH*4).asFloatBuffer();
-        loadTestData1(buf);
-        baseBuf = buf;
-    }
+  public void gwtSetUp() {
+    capacity = BUFFER_LENGTH;
+    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH * 4).asFloatBuffer();
+    loadTestData1(buf);
+    baseBuf = buf;
+  }
 
-    public void gwtTearDown() {
-        buf = null;
-        baseBuf = null;
-    }
+  public void gwtTearDown() {
+    buf = null;
+    baseBuf = null;
+  }
 
-    public void testHasArray() {
-        assertFalse(buf.hasArray());
-    }
+  public void testHasArray() {
+    assertFalse(buf.hasArray());
+  }
 
-    public void testArray() {
-        try {
-            buf.array();
-            fail("Should throw UnsupportedOperationException"); //$NON-NLS-1$
-        } catch (UnsupportedOperationException e) {
-        }
+  public void testArray() {
+    try {
+      buf.array();
+      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
+    } catch (UnsupportedOperationException e) {
     }
+  }
 
-    public void testArrayOffset() {
-        try {
-            buf.arrayOffset();
-            fail("Should throw UnsupportedOperationException"); //$NON-NLS-1$
-        } catch (UnsupportedOperationException e) {
-            //expected
-        }
+  public void testArrayOffset() {
+    try {
+      buf.arrayOffset();
+      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
+    } catch (UnsupportedOperationException e) {
+      // expected
     }
+  }
 
-    public void testIsDirect() {
-        assertTrue(buf.isDirect());
-    }
+  public void testIsDirect() {
+    assertTrue(buf.isDirect());
+  }
 
-    public void testOrder() {
-        assertEquals(ByteOrder.BIG_ENDIAN, buf.order());
-    }
+  public void testOrder() {
+    assertEquals(ByteOrder.BIG_ENDIAN, buf.order());
+  }
 }

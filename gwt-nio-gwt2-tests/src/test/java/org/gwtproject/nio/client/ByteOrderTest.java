@@ -17,28 +17,24 @@
 
 package org.gwtproject.nio.client;
 
+import com.google.gwt.junit.client.GWTTestCase;
 import java.nio.ByteOrder;
 
-import com.google.gwt.junit.client.GWTTestCase;
-
-/**
- * Test java.nio.ByteOrder
- * 
- */
+/** Test java.nio.ByteOrder */
 public class ByteOrderTest extends GWTTestCase {
 
-    public void testToString() {
-        assertEquals(ByteOrder.BIG_ENDIAN.toString(), "BIG_ENDIAN");
-        assertEquals(ByteOrder.LITTLE_ENDIAN.toString(), "LITTLE_ENDIAN");
-    }
+  public void testToString() {
+    assertEquals(ByteOrder.BIG_ENDIAN.toString(), "BIG_ENDIAN");
+    assertEquals(ByteOrder.LITTLE_ENDIAN.toString(), "LITTLE_ENDIAN");
+  }
 
-    public void testNativeOrder() {
-        ByteOrder o = ByteOrder.nativeOrder();
-        assertTrue(o == ByteOrder.BIG_ENDIAN || o == ByteOrder.LITTLE_ENDIAN);
-    }
+  public void testNativeOrder() {
+    ByteOrder o = ByteOrder.nativeOrder();
+    assertTrue(o == ByteOrder.BIG_ENDIAN || o == ByteOrder.LITTLE_ENDIAN);
+  }
 
-    @Override
-    public String getModuleName() {
-        return "org.gwtproject.nio.NIOTest";
-    }
+  @Override
+  public String getModuleName() {
+    return "org.gwtproject.nio.NIOTest";
+  }
 }

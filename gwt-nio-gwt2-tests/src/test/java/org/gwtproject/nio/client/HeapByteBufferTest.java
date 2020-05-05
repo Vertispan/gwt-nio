@@ -13,25 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.gwtproject.nio.client;
 
-import com.google.gwt.junit.client.GWTTestCase;
-import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
 
-/** Tests for BufferUnderflowException */
-public class BufferUnderflowExceptionTest extends GWTTestCase {
+public class HeapByteBufferTest extends ByteBufferTest {
 
-  /** @tests {@link java.nio.BufferUnderflowException#BufferUnderflowException()} */
-  public void test_Constructor() {
-    BufferUnderflowException exception = new BufferUnderflowException();
-    assertNull(exception.getMessage());
-    assertNull(exception.getLocalizedMessage());
-    assertNull(exception.getCause());
-  }
-
-  @Override
-  public String getModuleName() {
-    return "org.gwtproject.nio.NIOTest";
+  /** @tests java.nio.ByteBuffer#allocate(int) */
+  public void testAllocatedByteBuffer_IllegalArg() {
+    try {
+      ByteBuffer.allocate(-1);
+      fail("Should throw Exception"); // $NON-NLS-1$
+    } catch (IllegalArgumentException e) {
+      // expected
+    }
   }
 }

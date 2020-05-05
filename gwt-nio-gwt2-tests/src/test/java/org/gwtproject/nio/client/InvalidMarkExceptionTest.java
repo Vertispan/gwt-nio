@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package org.gwtproject.nio.client;
 
 import com.google.gwt.junit.client.GWTTestCase;
-import java.nio.BufferUnderflowException;
+import java.nio.InvalidMarkException;
 
-/** Tests for BufferUnderflowException */
-public class BufferUnderflowExceptionTest extends GWTTestCase {
+public class InvalidMarkExceptionTest extends GWTTestCase {
 
-  /** @tests {@link java.nio.BufferUnderflowException#BufferUnderflowException()} */
   public void test_Constructor() {
-    BufferUnderflowException exception = new BufferUnderflowException();
+    InvalidMarkException exception = new InvalidMarkException();
     assertNull(exception.getMessage());
     assertNull(exception.getLocalizedMessage());
     assertNull(exception.getCause());

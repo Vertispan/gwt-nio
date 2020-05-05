@@ -19,18 +19,19 @@ package org.gwtproject.nio.client;
 
 import java.nio.BufferOverflowException;
 import java.nio.BufferUnderflowException;
+import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
 import java.nio.InvalidMarkException;
+import java.nio.ShortBuffer;
 
-/** Tests java.nio.FloatBuffer */
-public class FloatBufferTest extends AbstractBufferTest {
+/** Tests java.nio.ShortBuffer */
+public class ShortBufferTest extends AbstractBufferTest {
 
   protected static final int SMALL_TEST_LENGTH = 5;
 
   protected static final int BUFFER_LENGTH = 20;
 
-  protected FloatBuffer buf;
+  protected ShortBuffer buf;
 
   @Override
   public String getModuleName() {
@@ -39,7 +40,7 @@ public class FloatBufferTest extends AbstractBufferTest {
 
   public void gwtSetUp() {
     capacity = BUFFER_LENGTH;
-    buf = FloatBuffer.allocate(BUFFER_LENGTH);
+    buf = ShortBuffer.allocate(BUFFER_LENGTH);
     loadTestData1(buf);
     baseBuf = buf;
   }
@@ -49,17 +50,22 @@ public class FloatBufferTest extends AbstractBufferTest {
     baseBuf = null;
   }
 
+  /*
+   * test for method static ShortBuffer allocate(int capacity) test covers
+   * following usecases: 1. case for check ShortBuffer testBuf properties 2.
+   * case expected IllegalArgumentException
+   */
   public void test_AllocateI() {
-    // case: FloatBuffer testBuf properties is satisfy the conditions
+    // case: ShortBuffer testBuf properties is satisfy the conditions
     // specification
-    FloatBuffer testBuf = FloatBuffer.allocate(20);
+    ShortBuffer testBuf = ShortBuffer.allocate(20);
     assertEquals(0, testBuf.position());
     assertNotNull(testBuf.array());
     assertEquals(0, testBuf.arrayOffset());
     assertEquals(20, testBuf.limit());
     assertEquals(20, testBuf.capacity());
 
-    testBuf = FloatBuffer.allocate(0);
+    testBuf = ShortBuffer.allocate(0);
     assertEquals(0, testBuf.position());
     assertNotNull(testBuf.array());
     assertEquals(0, testBuf.arrayOffset());
@@ -68,7 +74,7 @@ public class FloatBufferTest extends AbstractBufferTest {
 
     // case: expected IllegalArgumentException
     try {
-      testBuf = FloatBuffer.allocate(-20);
+      testBuf = ShortBuffer.allocate(-20);
       fail("allocate method does not throws expected exception");
     } catch (IllegalArgumentException e) {
       // expected
@@ -76,7 +82,7 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   public void testArray() {
-    float array[] = buf.array();
+    short array[] = buf.array();
     assertContentEquals(buf, array, buf.arrayOffset(), buf.capacity());
 
     loadTestData1(array, buf.arrayOffset(), buf.capacity());
@@ -93,14 +99,14 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   public void testArrayOffset() {
-    float array[] = buf.array();
+    short array[] = buf.array();
     for (int i = 0; i < buf.capacity(); i++) {
-      array[i] = i;
+      array[i] = (short) i;
     }
     int offset = buf.arrayOffset();
     assertContentEquals(buf, array, offset, buf.capacity());
 
-    FloatBuffer wrapped = FloatBuffer.wrap(array, 3, array.length - 3);
+    ShortBuffer wrapped = ShortBuffer.wrap(array, 3, array.length - 3);
 
     loadTestData1(array, wrapped.arrayOffset(), wrapped.capacity());
     assertContentEquals(buf, array, offset, buf.capacity());
@@ -115,7 +121,7 @@ public class FloatBufferTest extends AbstractBufferTest {
     buf.position(buf.limit());
 
     // readonly's contents should be the same as buf
-    FloatBuffer readonly = buf.asReadOnlyBuffer();
+    ShortBuffer readonly = buf.asReadOnlyBuffer();
     assertNotSame(buf, readonly);
     assertTrue(readonly.isReadOnly());
     assertEquals(buf.position(), readonly.position());
@@ -134,16 +140,15 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   public void testCompact() {
-
     // case: buffer is full
     buf.clear();
     buf.mark();
     loadTestData1(buf);
-    FloatBuffer ret = buf.compact();
+    ShortBuffer ret = buf.compact();
     assertSame(ret, buf);
     assertEquals(buf.position(), buf.capacity());
     assertEquals(buf.limit(), buf.capacity());
-    assertContentLikeTestData1(buf, 0, 0.0f, buf.capacity());
+    assertContentLikeTestData1(buf, 0, (short) 0, buf.capacity());
     try {
       buf.reset();
       fail("Should throw Exception"); // $NON-NLS-1$
@@ -159,7 +164,7 @@ public class FloatBufferTest extends AbstractBufferTest {
     assertSame(ret, buf);
     assertEquals(buf.position(), 0);
     assertEquals(buf.limit(), buf.capacity());
-    assertContentLikeTestData1(buf, 0, 0.0f, buf.capacity());
+    assertContentLikeTestData1(buf, 0, (short) 0, buf.capacity());
     try {
       // Fails on RI. Spec doesn't specify the behavior if
       // actually nothing to be done by compact(). So RI doesn't reset
@@ -179,7 +184,7 @@ public class FloatBufferTest extends AbstractBufferTest {
     assertSame(ret, buf);
     assertEquals(buf.position(), 4);
     assertEquals(buf.limit(), buf.capacity());
-    assertContentLikeTestData1(buf, 0, 1.0f, 4);
+    assertContentLikeTestData1(buf, 0, (short) 1, 4);
     try {
       buf.reset();
       fail("Should throw Exception"); // $NON-NLS-1$
@@ -189,14 +194,13 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   public void testCompareTo() {
-
     // compare to self
     assertEquals(0, buf.compareTo(buf));
 
     // normal cases
     assertTrue(buf.capacity() > 5);
     buf.clear();
-    FloatBuffer other = FloatBuffer.allocate(buf.capacity());
+    ShortBuffer other = ShortBuffer.allocate(buf.capacity());
     loadTestData1(other);
     assertEquals(0, buf.compareTo(other));
     assertEquals(0, other.compareTo(buf));
@@ -210,17 +214,6 @@ public class FloatBufferTest extends AbstractBufferTest {
     other.limit(5);
     assertTrue(buf.compareTo(other) > 0);
     assertTrue(other.compareTo(buf) < 0);
-
-    // BEGIN android-added
-    // copied from a newer version of Harmony
-    FloatBuffer fbuffer1 = FloatBuffer.wrap(new float[] {Float.NaN});
-    FloatBuffer fbuffer2 = FloatBuffer.wrap(new float[] {Float.NaN});
-    FloatBuffer fbuffer3 = FloatBuffer.wrap(new float[] {42f});
-
-    assertEquals("Failed equal comparison with NaN entry", 0, fbuffer1.compareTo(fbuffer2));
-    assertEquals("Failed greater than comparison with NaN entry", 1, fbuffer3.compareTo(fbuffer1));
-    assertEquals("Failed greater than comparison with NaN entry", 1, fbuffer1.compareTo(fbuffer3));
-    // END android-added
   }
 
   public void testDuplicate() {
@@ -229,7 +222,7 @@ public class FloatBufferTest extends AbstractBufferTest {
     buf.position(buf.limit());
 
     // duplicate's contents should be the same as buf
-    FloatBuffer duplicate = buf.duplicate();
+    ShortBuffer duplicate = buf.duplicate();
     assertNotSame(buf, duplicate);
     assertEquals(buf.position(), duplicate.position());
     assertEquals(buf.limit(), duplicate.limit());
@@ -258,9 +251,9 @@ public class FloatBufferTest extends AbstractBufferTest {
   public void testEquals() {
     // equal to self
     assertTrue(buf.equals(buf));
-    FloatBuffer readonly = buf.asReadOnlyBuffer();
+    ShortBuffer readonly = buf.asReadOnlyBuffer();
     assertTrue(buf.equals(readonly));
-    FloatBuffer duplicate = buf.duplicate();
+    ShortBuffer duplicate = buf.duplicate();
     assertTrue(buf.equals(duplicate));
 
     // always false, if type mismatch
@@ -278,13 +271,13 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   /*
-   * Class under test for float get()
+   * Class under test for short get()
    */
   public void testGet() {
     buf.clear();
     for (int i = 0; i < buf.capacity(); i++) {
       assertEquals(buf.position(), i);
-      assertEquals(buf.get(), buf.get(i), 0.01);
+      assertEquals(buf.get(), buf.get(i));
     }
     try {
       buf.get();
@@ -295,19 +288,19 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   /*
-   * Class under test for java.nio.FloatBuffer get(float[])
+   * Class under test for java.nio.ShortBuffer get(short[])
    */
-  public void testGetfloatArray() {
-    float array[] = new float[1];
+  public void testGetshortArray() {
+    short array[] = new short[1];
     buf.clear();
     for (int i = 0; i < buf.capacity(); i++) {
       assertEquals(buf.position(), i);
-      FloatBuffer ret = buf.get(array);
-      assertEquals(array[0], buf.get(i), 0.01);
+      ShortBuffer ret = buf.get(array);
+      assertEquals(array[0], buf.get(i));
       assertSame(ret, buf);
     }
 
-    buf.get(new float[0]);
+    buf.get(new short[0]);
 
     try {
       buf.get(array);
@@ -315,17 +308,24 @@ public class FloatBufferTest extends AbstractBufferTest {
     } catch (BufferUnderflowException e) {
       // expected
     }
+
+    try {
+      buf.get((short[]) null);
+      fail("Should throw Exception"); // $NON-NLS-1$
+    } catch (Exception e) {
+      // expected
+    }
   }
 
   /*
-   * Class under test for java.nio.FloatBuffer get(float[], int, int)
+   * Class under test for java.nio.ShortBuffer get(short[], int, int)
    */
-  public void testGetfloatArrayintint() {
+  public void testGetshortArrayintint() {
     buf.clear();
-    float array[] = new float[buf.capacity()];
+    short array[] = new short[buf.capacity()];
 
     try {
-      buf.get(new float[buf.capacity() + 1], 0, buf.capacity() + 1);
+      buf.get(new short[buf.capacity() + 1], 0, buf.capacity() + 1);
       fail("Should throw Exception"); // $NON-NLS-1$
     } catch (BufferUnderflowException e) {
       // expected
@@ -346,9 +346,9 @@ public class FloatBufferTest extends AbstractBufferTest {
     }
     assertEquals(buf.position(), 0);
     try {
-      buf.get(array, 2, -1);
+      buf.get((short[]) null, 2, -1);
       fail("Should throw Exception"); // $NON-NLS-1$
-    } catch (IndexOutOfBoundsException e) {
+    } catch (Exception e) {
       // expected
     }
     try {
@@ -372,20 +372,20 @@ public class FloatBufferTest extends AbstractBufferTest {
     assertEquals(buf.position(), 0);
 
     buf.clear();
-    FloatBuffer ret = buf.get(array, 0, array.length);
+    ShortBuffer ret = buf.get(array, 0, array.length);
     assertEquals(buf.position(), buf.capacity());
     assertContentEquals(buf, array, 0, array.length);
     assertSame(ret, buf);
   }
 
   /*
-   * Class under test for float get(int)
+   * Class under test for short get(int)
    */
   public void testGetint() {
     buf.clear();
     for (int i = 0; i < buf.capacity(); i++) {
       assertEquals(buf.position(), i);
-      assertEquals(buf.get(), buf.get(i), 0.01);
+      assertEquals(buf.get(), buf.get(i));
     }
     try {
       buf.get(-1);
@@ -419,8 +419,8 @@ public class FloatBufferTest extends AbstractBufferTest {
 
   public void testHashCode() {
     buf.clear();
-    FloatBuffer readonly = buf.asReadOnlyBuffer();
-    FloatBuffer duplicate = buf.duplicate();
+    ShortBuffer readonly = buf.asReadOnlyBuffer();
+    ShortBuffer duplicate = buf.duplicate();
     assertTrue(buf.hashCode() == readonly.hashCode());
 
     assertTrue(buf.capacity() > 5);
@@ -437,25 +437,22 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   public void testOrder() {
-    buf.order();
-    if (buf.hasArray()) {
-      assertEquals(ByteOrder.nativeOrder(), buf.order());
-    }
+    assertEquals(ByteOrder.nativeOrder(), buf.order());
   }
 
   /*
-   * Class under test for java.nio.FloatBuffer put(float)
+   * Class under test for java.nio.ShortBuffer put(short)
    */
-  public void testPutfloat() {
+  public void testPutshort() {
     buf.clear();
     for (int i = 0; i < buf.capacity(); i++) {
       assertEquals(buf.position(), i);
-      FloatBuffer ret = buf.put((float) i);
-      assertEquals(buf.get(i), (float) i, 0.0);
+      ShortBuffer ret = buf.put((short) i);
+      assertEquals(buf.get(i), (short) i);
       assertSame(ret, buf);
     }
     try {
-      buf.put(0);
+      buf.put((short) 0);
       fail("Should throw Exception"); // $NON-NLS-1$
     } catch (BufferOverflowException e) {
       // expected
@@ -463,16 +460,16 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   /*
-   * Class under test for java.nio.FloatBuffer put(float[])
+   * Class under test for java.nio.ShortBuffer put(short[])
    */
-  public void testPutfloatArray() {
-    float array[] = new float[1];
+  public void testPutshortArray() {
+    short array[] = new short[1];
     buf.clear();
     for (int i = 0; i < buf.capacity(); i++) {
       assertEquals(buf.position(), i);
-      array[0] = (float) i;
-      FloatBuffer ret = buf.put(array);
-      assertEquals(buf.get(i), (float) i, 0.0);
+      array[0] = (short) i;
+      ShortBuffer ret = buf.put(array);
+      assertEquals(buf.get(i), (short) i);
       assertSame(ret, buf);
     }
     try {
@@ -481,16 +478,23 @@ public class FloatBufferTest extends AbstractBufferTest {
     } catch (BufferOverflowException e) {
       // expected
     }
+    try {
+      buf.position(buf.limit());
+      buf.put((short[]) null);
+      fail("Should throw Exception"); // $NON-NLS-1$
+    } catch (Exception e) {
+      // expected
+    }
   }
 
   /*
-   * Class under test for java.nio.FloatBuffer put(float[], int, int)
+   * Class under test for java.nio.ShortBuffer put(short[], int, int)
    */
-  public void testPutfloatArrayintint() {
+  public void testPutshortArrayintint() {
     buf.clear();
-    float array[] = new float[buf.capacity()];
+    short array[] = new short[buf.capacity()];
     try {
-      buf.put(new float[buf.capacity() + 1], 0, buf.capacity() + 1);
+      buf.put(new short[buf.capacity() + 1], 0, buf.capacity() + 1);
       fail("Should throw Exception"); // $NON-NLS-1$
     } catch (BufferOverflowException e) {
       // expected
@@ -517,6 +521,12 @@ public class FloatBufferTest extends AbstractBufferTest {
       // expected
     }
     try {
+      buf.put((short[]) null, 0, -1);
+      fail("Should throw Exception"); // $NON-NLS-1$
+    } catch (Exception e) {
+      // expected
+    }
+    try {
       buf.put(array, 2, array.length);
       fail("Should throw Exception"); // $NON-NLS-1$
     } catch (IndexOutOfBoundsException e) {
@@ -537,17 +547,34 @@ public class FloatBufferTest extends AbstractBufferTest {
     assertEquals(buf.position(), 0);
 
     loadTestData2(array, 0, array.length);
-    FloatBuffer ret = buf.put(array, 0, array.length);
+    ShortBuffer ret = buf.put(array, 0, array.length);
     assertEquals(buf.position(), buf.capacity());
     assertContentEquals(buf, array, 0, array.length);
     assertSame(ret, buf);
   }
 
   /*
-   * Class under test for java.nio.FloatBuffer put(java.nio.FloatBuffer)
+   * Class under test for java.nio.IntBuffer put(int[], int, int)
    */
-  public void testPutFloatBuffer() {
-    FloatBuffer other = FloatBuffer.allocate(buf.capacity());
+  public void testPutshortArrayintint2() {
+    // Regression test
+    ByteBuffer buf = ByteBuffer.allocateDirect(10);
+    ShortBuffer shortBuf = buf.asShortBuffer();
+    short[] src = new short[5];
+    shortBuf.put(src);
+    shortBuf.clear();
+    try {
+      shortBuf.put(src);
+    } catch (BufferOverflowException e) {
+      fail("should not throw a BufferOverflowException");
+    }
+  }
+
+  /*
+   * Class under test for java.nio.ShortBuffer put(java.nio.ShortBuffer)
+   */
+  public void testPutShortBuffer() {
+    ShortBuffer other = ShortBuffer.allocate(buf.capacity());
     try {
       buf.put(buf);
       fail("Should throw Exception"); // $NON-NLS-1$
@@ -555,16 +582,23 @@ public class FloatBufferTest extends AbstractBufferTest {
       // expected
     }
     try {
-      buf.put(FloatBuffer.allocate(buf.capacity() + 1));
+      buf.put(ShortBuffer.allocate(buf.capacity() + 1));
       fail("Should throw Exception"); // $NON-NLS-1$
     } catch (BufferOverflowException e) {
       // expected
     }
-    buf.clear();
+    try {
+      buf.flip();
+      buf.put((ShortBuffer) null);
+      fail("Should throw Exception"); // $NON-NLS-1$
+    } catch (Exception e) {
+      // expected
+    }
+
     loadTestData2(other);
     other.clear();
     buf.clear();
-    FloatBuffer ret = buf.put(other);
+    ShortBuffer ret = buf.put(other);
     assertEquals(other.position(), other.capacity());
     assertEquals(buf.position(), buf.capacity());
     assertContentEquals(other, buf);
@@ -572,24 +606,24 @@ public class FloatBufferTest extends AbstractBufferTest {
   }
 
   /*
-   * Class under test for java.nio.FloatBuffer put(int, float)
+   * Class under test for java.nio.ShortBuffer put(int, short)
    */
-  public void testPutintfloat() {
+  public void testPutintshort() {
     buf.clear();
     for (int i = 0; i < buf.capacity(); i++) {
       assertEquals(buf.position(), 0);
-      FloatBuffer ret = buf.put(i, (float) i);
-      assertEquals(buf.get(i), (float) i, 0.0);
+      ShortBuffer ret = buf.put(i, (short) i);
+      assertEquals(buf.get(i), (short) i);
       assertSame(ret, buf);
     }
     try {
-      buf.put(-1, 0);
+      buf.put(-1, (short) 0);
       fail("Should throw Exception"); // $NON-NLS-1$
     } catch (IndexOutOfBoundsException e) {
       // expected
     }
     try {
-      buf.put(buf.limit(), 0);
+      buf.put(buf.limit(), (short) 0);
       fail("Should throw Exception"); // $NON-NLS-1$
     } catch (IndexOutOfBoundsException e) {
       // expected
@@ -601,7 +635,7 @@ public class FloatBufferTest extends AbstractBufferTest {
     buf.position(1);
     buf.limit(buf.capacity() - 1);
 
-    FloatBuffer slice = buf.slice();
+    ShortBuffer slice = buf.slice();
     assertEquals(buf.isReadOnly(), slice.isReadOnly());
     assertEquals(buf.isDirect(), slice.isDirect());
     assertEquals(buf.order(), slice.order());
@@ -618,127 +652,127 @@ public class FloatBufferTest extends AbstractBufferTest {
     // slice share the same content with buf
     if (!slice.isReadOnly()) {
       loadTestData1(slice);
-      assertContentLikeTestData1(buf, 1, 0, slice.capacity());
-      buf.put(2, 500);
-      assertEquals(slice.get(1), 500, 0.0);
+      assertContentLikeTestData1(buf, 1, (short) 0, slice.capacity());
+      buf.put(2, (short) 500);
+      assertEquals(slice.get(1), 500);
     }
   }
 
   public void testToString() {
     String str = buf.toString();
-    assertTrue(str.indexOf("Float") >= 0 || str.indexOf("float") >= 0);
+    assertTrue(str.indexOf("Short") >= 0 || str.indexOf("short") >= 0);
     assertTrue(str.indexOf("" + buf.position()) >= 0);
     assertTrue(str.indexOf("" + buf.limit()) >= 0);
     assertTrue(str.indexOf("" + buf.capacity()) >= 0);
   }
 
   /*
-   * test for method static FloatBuffer wrap(float[] array) test covers
-   * following usecases: 1. case for check FloatBuffer buf2 properties 2. case
-   * for check equal between buf2 and float array[] 3. case for check a buf2
+   * test for method static ShortBuffer wrap(short[] array) test covers
+   * following usecases: 1. case for check ShortBuffer buf2 properties 2. case
+   * for check equal between buf2 and short array[] 3. case for check a buf2
    * dependens to array[]
    */
   public void test_Wrap$S() {
-    float array[] = new float[BUFFER_LENGTH];
+    short array[] = new short[BUFFER_LENGTH];
     loadTestData1(array, 0, BUFFER_LENGTH);
-    FloatBuffer buf2 = FloatBuffer.wrap(array);
+    ShortBuffer buf2 = ShortBuffer.wrap(array);
 
-    // case: FloatBuffer buf2 properties is satisfy the conditions
+    // case: ShortBuffer buf2 properties is satisfy the conditions
     // specification
     assertEquals(buf2.capacity(), array.length);
     assertEquals(buf2.limit(), array.length);
     assertEquals(buf2.position(), 0);
 
-    // case: FloatBuffer buf2 is equal to float array[]
+    // case: ShortBuffer buf2 is equal to short array[]
     assertContentEquals(buf2, array, 0, array.length);
 
-    // case: FloatBuffer buf2 is depended to float array[]
+    // case: ShortBuffer buf2 is depended to short array[]
     loadTestData2(array, 0, buf.capacity());
     assertContentEquals(buf2, array, 0, array.length);
   }
 
   /*
-   * test for method static FloatBuffer wrap(float[] array, int offset, int
-   * length) test covers following usecases: 1. case for check FloatBuffer
-   * buf2 properties 2. case for check equal between buf2 and float array[] 3.
+   * test for method static ShortBuffer wrap(short[] array, int offset, int
+   * length) test covers following usecases: 1. case for check ShortBuffer
+   * buf2 properties 2. case for check equal between buf2 and short array[] 3.
    * case for check a buf2 dependens to array[] 4. case expected
    * IndexOutOfBoundsException
    */
   public void test_Wrap$SII() {
-    float array[] = new float[BUFFER_LENGTH];
+    short array[] = new short[BUFFER_LENGTH];
     int offset = 5;
     int length = BUFFER_LENGTH - offset;
     loadTestData1(array, 0, BUFFER_LENGTH);
-    FloatBuffer buf2 = FloatBuffer.wrap(array, offset, length);
+    ShortBuffer buf2 = ShortBuffer.wrap(array, offset, length);
 
-    // case: FloatBuffer buf2 properties is satisfy the conditions
+    // case: ShortBuffer buf2 properties is satisfy the conditions
     // specification
     assertEquals(buf2.capacity(), array.length);
     assertEquals(buf2.position(), offset);
     assertEquals(buf2.limit(), offset + length);
     assertEquals(buf2.arrayOffset(), 0);
 
-    // case: FloatBuffer buf2 is equal to float array[]
+    // case: ShortBuffer buf2 is equal to short array[]
     assertContentEquals(buf2, array, 0, array.length);
 
-    // case: FloatBuffer buf2 is depended to float array[]
+    // case: ShortBuffer buf2 is depended to short array[]
     loadTestData2(array, 0, buf.capacity());
     assertContentEquals(buf2, array, 0, array.length);
 
     // case: expected IndexOutOfBoundsException
     try {
       offset = 7;
-      buf2 = FloatBuffer.wrap(array, offset, length);
+      buf2 = ShortBuffer.wrap(array, offset, length);
       fail("wrap method does not throws expected exception");
     } catch (IndexOutOfBoundsException e) {
       // expected
     }
   }
 
-  void loadTestData1(float array[], int offset, int length) {
+  void loadTestData1(short array[], int offset, int length) {
     for (int i = 0; i < length; i++) {
-      array[offset + i] = (float) i;
+      array[offset + i] = (short) i;
     }
   }
 
-  void loadTestData2(float array[], int offset, int length) {
+  void loadTestData2(short array[], int offset, int length) {
     for (int i = 0; i < length; i++) {
-      array[offset + i] = (float) length - i;
+      array[offset + i] = (short) (length - i);
     }
   }
 
-  void loadTestData1(FloatBuffer buf) {
+  void loadTestData1(ShortBuffer buf) {
     buf.clear();
     for (int i = 0; i < buf.capacity(); i++) {
-      buf.put(i, (float) i);
+      buf.put(i, (short) i);
     }
   }
 
-  void loadTestData2(FloatBuffer buf) {
+  void loadTestData2(ShortBuffer buf) {
     buf.clear();
     for (int i = 0; i < buf.capacity(); i++) {
-      buf.put(i, (float) buf.capacity() - i);
+      buf.put(i, (short) (buf.capacity() - i));
     }
   }
 
-  void assertContentEquals(FloatBuffer buf, float array[], int offset, int length) {
+  void assertContentEquals(ShortBuffer buf, short array[], int offset, int length) {
     for (int i = 0; i < length; i++) {
-      assertEquals(buf.get(i), array[offset + i], 0.01);
+      assertEquals(buf.get(i), array[offset + i]);
     }
   }
 
-  void assertContentEquals(FloatBuffer buf, FloatBuffer other) {
+  void assertContentEquals(ShortBuffer buf, ShortBuffer other) {
     assertEquals(buf.capacity(), other.capacity());
     for (int i = 0; i < buf.capacity(); i++) {
-      assertEquals(buf.get(i), other.get(i), 0.01);
+      assertEquals(buf.get(i), other.get(i));
     }
   }
 
-  void assertContentLikeTestData1(FloatBuffer buf, int startIndex, float startValue, int length) {
-    float value = startValue;
+  void assertContentLikeTestData1(ShortBuffer buf, int startIndex, short startValue, int length) {
+    short value = startValue;
     for (int i = 0; i < length; i++) {
-      assertEquals(buf.get(startIndex + i), value, 0.01);
-      value = value + 1.0f;
+      assertEquals(buf.get(startIndex + i), value);
+      value = (short) (value + 1);
     }
   }
 }

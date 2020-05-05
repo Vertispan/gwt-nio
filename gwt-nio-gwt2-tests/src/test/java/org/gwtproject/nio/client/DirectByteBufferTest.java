@@ -4,9 +4,9 @@
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -19,60 +19,57 @@ import java.nio.ByteBuffer;
 
 public class DirectByteBufferTest extends ByteBufferTest {
 
-    public void gwtSetUp() {
-        capacity = BUFFER_LENGTH;
-        buf = ByteBuffer.allocateDirect(BUFFER_LENGTH);
-        loadTestData1(buf);
-        baseBuf = buf;
-    }
+  public void gwtSetUp() {
+    capacity = BUFFER_LENGTH;
+    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH);
+    loadTestData1(buf);
+    baseBuf = buf;
+  }
 
-    public void gwtTearDown() {
-        buf = null;
-        baseBuf = null;
-    }
+  public void gwtTearDown() {
+    buf = null;
+    baseBuf = null;
+  }
 
-    /**
-     * @tests java.nio.ByteBuffer#allocateDirect(int)
-     * 
-     */
-/*    public void testAllocatedByteBuffer_IllegalArg() {
-        try {
-            ByteBuffer.allocateDirect(-1);
-            fail("Should throw Exception"); //$NON-NLS-1$
-        } catch (IllegalArgumentException e) {
-            // expected
-        }
-    }
+  /** @tests java.nio.ByteBuffer#allocateDirect(int) */
+  /*    public void testAllocatedByteBuffer_IllegalArg() {
+      try {
+          ByteBuffer.allocateDirect(-1);
+          fail("Should throw Exception"); //$NON-NLS-1$
+      } catch (IllegalArgumentException e) {
+          // expected
+      }
+  }
 
-    public void testArray() {
-        try {
-            buf.array();
-            fail("Should throw UnsupportedOperationException"); //$NON-NLS-1$
-        } catch (UnsupportedOperationException e) {
-            // expected
-        }
-    }
+  public void testArray() {
+      try {
+          buf.array();
+          fail("Should throw UnsupportedOperationException"); //$NON-NLS-1$
+      } catch (UnsupportedOperationException e) {
+          // expected
+      }
+  }
 
-    public void testArrayOffset() {
-        try {
-            buf.arrayOffset();
-            fail("Should throw UnsupportedOperationException"); //$NON-NLS-1$
-        } catch (UnsupportedOperationException e) {
-            // expected
-        }
-    }
+  public void testArrayOffset() {
+      try {
+          buf.arrayOffset();
+          fail("Should throw UnsupportedOperationException"); //$NON-NLS-1$
+      } catch (UnsupportedOperationException e) {
+          // expected
+      }
+  }
 
-    public void testIsDirect() {
-        assertTrue(buf.isDirect());
-    }
+  public void testIsDirect() {
+      assertTrue(buf.isDirect());
+  }
 
-    public void testHasArray() {
-        assertFalse(buf.hasArray());
-        try {
-            buf.array();
-            fail("Should throw Exception"); //$NON-NLS-1$
-        } catch (UnsupportedOperationException e) {
-            // expected
-        }
-    }*/
+  public void testHasArray() {
+      assertFalse(buf.hasArray());
+      try {
+          buf.array();
+          fail("Should throw Exception"); //$NON-NLS-1$
+      } catch (UnsupportedOperationException e) {
+          // expected
+      }
+  }*/
 }
