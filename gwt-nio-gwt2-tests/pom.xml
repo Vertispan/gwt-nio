@@ -81,7 +81,7 @@
                 <configuration>
                     <generateInheritsFromDependencies>false</generateInheritsFromDependencies>
                     <moduleName>org.gwtproject.nio.client.NIOGwtTest</moduleName>
-                    <includes>**/*GwtTest.java</includes>
+                    <includes>**/*Suite.java</includes>
                 </configuration>
             </plugin>
             <plugin>

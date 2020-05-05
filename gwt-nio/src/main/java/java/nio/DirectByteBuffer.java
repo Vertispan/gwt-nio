@@ -166,7 +166,7 @@ public abstract class DirectByteBuffer extends BaseByteBuffer implements HasArra
     }
 
     public final boolean isDirect() {
-        return false;
+        return true;
     }
 
     protected final int loadInt(int baseOffset) {
