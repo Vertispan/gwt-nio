@@ -1,4 +1,0 @@
-<module>
-    <inherits name="java.nio.JavaNio" />
-    <source path="" />
-</module>

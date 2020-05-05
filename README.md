@@ -1,7 +1,7 @@
 # GWT/J2CL emulation for `java.nio` packages
 
 This project provides emulation for the `java.nio` packages, forked
-from the [PlayN](https://github.com/playn/playn) project. There is 
+from the [quake2](https://code.google.com/archive/p/quake2-gwt-port) project. There is 
 also a utility class included to allow wrapping and unwrapping JS
 Typed Arrays. 
 
@@ -13,13 +13,6 @@ your `.gwt.xml` module file:
 The `org.gwtproject.nio.TypedArrayHelper` class contains to helper 
 methods, to turn `java.nio.ByteBuffer`s into JavaScript `ArrayBuffer` 
 (technically `ArrayBufferView`, but you can get an `ArrayBuffer` from 
-there) and back again. For legacy reasons, `HasArrayBufferView` also 
-still exists from the original PlayN project, and `ByteBuffer` still
-implements it, but using the `TypedArrayHelper` is encouraged for both
-directions of wrapping and unwrapping.
-
-The interface `TypedArrayHelper.Wrapper` still exists, but its use
-is discouraged.
-
+there) and back again.
 
 #### Take care in forking this repository, we may rewrite history to remove unrelated PlayN commits.
