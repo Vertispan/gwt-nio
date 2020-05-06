@@ -45,7 +45,7 @@
   <modules>
     <module>gwt-nio</module>
     <module>gwt-nio-gwt2-tests</module>
-    <!--    <module>gwt-nio-j2cl-tests</module>-->
+    <module>gwt-nio-j2cl-tests</module>
   </modules>
 
   <properties>
