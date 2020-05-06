@@ -18,6 +18,7 @@ package java.nio;
 
 import elemental2.core.ArrayBufferView;
 import elemental2.core.Int16Array;
+import org.gwtproject.nio.HasArrayBufferView;
 
 /**
  * This class wraps a byte buffer to be a short buffer.

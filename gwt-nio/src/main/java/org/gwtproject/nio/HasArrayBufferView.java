@@ -22,7 +22,7 @@ import elemental2.core.ArrayBufferView;
  * nio buffer types implement this interfaces in GWT mode. This can be used only in HTML-platform
  * specific code.
  */
-public interface HasArrayBufferView  extends java.nio.HasArrayBufferView{
+public interface HasArrayBufferView {
 
     /* Returns the underlying typed array buffer view. */
     ArrayBufferView getTypedArray();
