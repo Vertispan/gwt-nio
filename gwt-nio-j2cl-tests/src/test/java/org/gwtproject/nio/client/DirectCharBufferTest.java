@@ -15,20 +15,25 @@
  */
 package org.gwtproject.nio.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import com.google.j2cl.junit.apt.J2clTestInput;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import org.junit.Before;
+import org.junit.Test;
 
-public class DirectFloatBufferTest extends FloatBufferTest {
+@J2clTestInput(DirectCharBufferTest.class)
+public class DirectCharBufferTest extends CharBufferTest {
 
-  @Override
-  public String getModuleName() {
-    return "org.gwtproject.nio.NIOTest";
-  }
-
+  @Before
   public void gwtSetUp() {
     super.gwtSetUp();
     capacity = BUFFER_LENGTH;
-    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH * 4).asFloatBuffer();
+    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH * 2).asCharBuffer();
     loadTestData1(buf);
     baseBuf = buf;
   }
@@ -38,10 +43,7 @@ public class DirectFloatBufferTest extends FloatBufferTest {
     baseBuf = null;
   }
 
-  public void testHasArray() {
-    assertFalse(buf.hasArray());
-  }
-
+  @Test
   public void testArray() {
     try {
       buf.array();
@@ -50,19 +52,26 @@ public class DirectFloatBufferTest extends FloatBufferTest {
     }
   }
 
+  @Test
   public void testArrayOffset() {
     try {
       buf.arrayOffset();
       fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
     } catch (UnsupportedOperationException e) {
-      // expected
     }
   }
 
+  @Test
   public void testIsDirect() {
     assertTrue(buf.isDirect());
   }
 
+  @Test
+  public void testHasArray() {
+    assertFalse(buf.hasArray());
+  }
+
+  @Test
   public void testOrder() {
     assertEquals(ByteOrder.BIG_ENDIAN, buf.order());
   }

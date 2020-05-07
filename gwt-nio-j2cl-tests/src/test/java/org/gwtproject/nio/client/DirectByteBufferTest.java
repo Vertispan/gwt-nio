@@ -15,41 +15,33 @@
  */
 package org.gwtproject.nio.client;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import com.google.j2cl.junit.apt.J2clTestInput;
 import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
+import org.junit.Before;
+import org.junit.Test;
 
-public class DirectFloatBufferTest extends FloatBufferTest {
-
-  @Override
-  public String getModuleName() {
-    return "org.gwtproject.nio.NIOTest";
-  }
-
-  public void gwtSetUp() {
-    super.gwtSetUp();
-    capacity = BUFFER_LENGTH;
-    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH * 4).asFloatBuffer();
-    loadTestData1(buf);
-    baseBuf = buf;
-  }
+@J2clTestInput(DirectByteBufferTest.class)
+public class DirectByteBufferTest extends ByteBufferTest {
 
   public void gwtTearDown() {
     buf = null;
     baseBuf = null;
   }
 
-  public void testHasArray() {
-    assertFalse(buf.hasArray());
+  @Before
+  public void gwtSetUp() {
+    super.gwtSetUp();
+    capacity = BUFFER_LENGTH;
+    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH);
+    loadTestData1(buf);
+    baseBuf = buf;
   }
 
-  public void testArray() {
-    try {
-      buf.array();
-      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
-    } catch (UnsupportedOperationException e) {
-    }
-  }
-
+  @Test
   public void testArrayOffset() {
     try {
       buf.arrayOffset();
@@ -59,11 +51,40 @@ public class DirectFloatBufferTest extends FloatBufferTest {
     }
   }
 
+  @Test
+  public void testHasArray() {
+    assertFalse(buf.hasArray());
+    try {
+      buf.array();
+      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
+    } catch (Exception e) {
+
+    }
+  }
+
+  @Test
   public void testIsDirect() {
     assertTrue(buf.isDirect());
   }
 
-  public void testOrder() {
-    assertEquals(ByteOrder.BIG_ENDIAN, buf.order());
+  /** @tests java.nio.ByteBuffer#allocateDirect(int) */
+  @Test
+  public void testAllocatedByteBuffer_IllegalArg() {
+    try {
+      ByteBuffer.allocateDirect(-1);
+      fail("Should throw Exception"); // $NON-NLS-1$
+    } catch (IllegalArgumentException e) {
+      // expected
+    }
+  }
+
+  @Test
+  public void testArray() {
+    try {
+      buf.array();
+      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
+    } catch (UnsupportedOperationException e) {
+      // expected
+    }
   }
 }

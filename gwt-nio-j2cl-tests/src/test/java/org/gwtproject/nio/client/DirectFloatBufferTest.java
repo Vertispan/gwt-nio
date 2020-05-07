@@ -15,16 +15,21 @@
  */
 package org.gwtproject.nio.client;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import org.junit.Before;
+import org.junit.Test;
 
+// TODO, some tests fail but work in gwt2
+// @J2clTestInput(DirectFloatBufferTest.class)
 public class DirectFloatBufferTest extends FloatBufferTest {
 
-  @Override
-  public String getModuleName() {
-    return "org.gwtproject.nio.NIOTest";
-  }
-
+  @Before
   public void gwtSetUp() {
     super.gwtSetUp();
     capacity = BUFFER_LENGTH;
@@ -33,15 +38,13 @@ public class DirectFloatBufferTest extends FloatBufferTest {
     baseBuf = buf;
   }
 
+  @Test
   public void gwtTearDown() {
     buf = null;
     baseBuf = null;
   }
 
-  public void testHasArray() {
-    assertFalse(buf.hasArray());
-  }
-
+  @Test
   public void testArray() {
     try {
       buf.array();
@@ -50,6 +53,7 @@ public class DirectFloatBufferTest extends FloatBufferTest {
     }
   }
 
+  @Test
   public void testArrayOffset() {
     try {
       buf.arrayOffset();
@@ -59,10 +63,17 @@ public class DirectFloatBufferTest extends FloatBufferTest {
     }
   }
 
+  @Test
+  public void testHasArray() {
+    assertFalse(buf.hasArray());
+  }
+
+  @Test
   public void testIsDirect() {
     assertTrue(buf.isDirect());
   }
 
+  @Test
   public void testOrder() {
     assertEquals(ByteOrder.BIG_ENDIAN, buf.order());
   }

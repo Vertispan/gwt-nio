@@ -33,17 +33,16 @@ import org.gwtproject.nio.HasArrayBufferView;
  * </p>
  */
 final class DirectReadOnlyFloatBufferAdapter extends FloatBuffer implements HasArrayBufferView {
-//implements DirectBuffer {
 
     private final DirectByteBuffer byteBuffer;
     private final Float32Array floatArray;
+
     DirectReadOnlyFloatBufferAdapter(DirectByteBuffer byteBuffer) {
         super((byteBuffer.capacity() >> 2));
         this.byteBuffer = byteBuffer;
         this.byteBuffer.clear();
-        this.floatArray = new Float32Array(byteBuffer.getTypedArray(),
-                                           byteBuffer.getTypedArray().byteOffset,
-                                           capacity);
+
+        this.floatArray = new Float32Array(byteBuffer.getTypedArray(), byteBuffer.getTypedArray().byteOffset, capacity);
     }
 
     static FloatBuffer wrap(DirectByteBuffer byteBuffer) {
@@ -56,17 +55,17 @@ final class DirectReadOnlyFloatBufferAdapter extends FloatBuffer implements HasA
     }
 
     @Override
-    float[] protectedArray() {
+    protected float[] protectedArray() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    int protectedArrayOffset() {
+    protected int protectedArrayOffset() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    boolean protectedHasArray() {
+    protected boolean protectedHasArray() {
         return false;
     }
 
@@ -113,10 +112,10 @@ final class DirectReadOnlyFloatBufferAdapter extends FloatBuffer implements HasA
 
     @Override
     public float get(int index) {
-//        if (index < 0 || index >= limit) {
-//            throw new IndexOutOfBoundsException();
-//        }
-        return floatArray.getAt(index).floatValue();
+        if (index < 0 || index >= limit) {
+            throw new IndexOutOfBoundsException();
+        }
+        return floatArray.getAt(index).intValue();
     }
 
     @Override

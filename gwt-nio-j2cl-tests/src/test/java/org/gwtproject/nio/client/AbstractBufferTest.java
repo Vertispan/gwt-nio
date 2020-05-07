@@ -38,6 +38,7 @@ public abstract class AbstractBufferTest {
     baseBuf = ByteBuffer.allocate(10);
   }
 
+  @Test
   public void testCapacity() {
     assertTrue(
         0 <= baseBuf.position()

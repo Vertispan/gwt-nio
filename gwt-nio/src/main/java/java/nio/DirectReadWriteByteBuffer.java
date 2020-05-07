@@ -106,7 +106,7 @@ public final class DirectReadWriteByteBuffer extends DirectByteBuffer {
     }
 
     protected boolean protectedHasArray() {
-        return true;
+        return false;
     }
 
     public ByteBuffer put(byte b) {

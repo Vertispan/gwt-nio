@@ -13,62 +13,65 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.gwtproject.nio.client;
 
-import java.nio.ByteBuffer;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class DirectByteBufferTest extends ByteBufferTest {
+import com.google.j2cl.junit.apt.J2clTestInput;
+import java.nio.ReadOnlyBufferException;
+import org.junit.Before;
+import org.junit.Test;
 
-  public void gwtTearDown() {
-    buf = null;
-    baseBuf = null;
-  }
+@J2clTestInput(ReadOnlyHeapByteBufferTest.class)
+public class ReadOnlyHeapByteBufferTest extends HeapByteBufferTest {
 
+  @Before
   public void gwtSetUp() {
-    capacity = BUFFER_LENGTH;
-    buf = ByteBuffer.allocateDirect(BUFFER_LENGTH);
-    loadTestData1(buf);
+    super.gwtSetUp();
+    buf = buf.asReadOnlyBuffer();
     baseBuf = buf;
   }
 
+  @Test
+  public void testIsReadOnly() {
+    assertTrue(buf.isReadOnly());
+  }
+
+  @Test
   public void testArrayOffset() {
     try {
       buf.arrayOffset();
-      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
-    } catch (UnsupportedOperationException e) {
+      fail("Should throw ReadOnlyBufferException"); // $NON-NLS-1$
+    } catch (ReadOnlyBufferException e) {
       // expected
     }
   }
 
+  @Test
   public void testHasArray() {
     assertFalse(buf.hasArray());
     try {
       buf.array();
       fail("Should throw Exception"); // $NON-NLS-1$
-    } catch (UnsupportedOperationException e) {
+    } catch (ReadOnlyBufferException e) {
       // expected
     }
   }
 
-  public void testIsDirect() {
-    assertTrue(buf.isDirect());
+  @Test
+  public void testHashCode() {
+    super.readOnlyHashCode(false);
   }
 
-  /** @tests java.nio.ByteBuffer#allocateDirect(int) */
-  public void testAllocatedByteBuffer_IllegalArg() {
-    try {
-      ByteBuffer.allocateDirect(-1);
-      fail("Should throw Exception"); // $NON-NLS-1$
-    } catch (IllegalArgumentException e) {
-      // expected
-    }
-  }
-
+  @Test
   public void testArray() {
     try {
       buf.array();
-      fail("Should throw UnsupportedOperationException"); // $NON-NLS-1$
-    } catch (UnsupportedOperationException e) {
+      fail("Should throw ReadOnlyBufferException"); // $NON-NLS-1$
+    } catch (ReadOnlyBufferException e) {
       // expected
     }
   }
