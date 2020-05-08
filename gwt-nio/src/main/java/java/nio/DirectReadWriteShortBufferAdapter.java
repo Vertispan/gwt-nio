@@ -163,4 +163,8 @@ final class DirectReadWriteShortBufferAdapter extends ShortBuffer implements Has
     public int getElementSize() {
         return 2;
     }
+
+    public int getElementType() {
+        return 0x1402; // GL_SHORT
+    }
 }

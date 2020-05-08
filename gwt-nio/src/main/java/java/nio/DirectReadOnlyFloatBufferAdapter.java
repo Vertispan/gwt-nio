@@ -145,4 +145,8 @@ final class DirectReadOnlyFloatBufferAdapter extends FloatBuffer implements HasA
     public int getElementSize() {
         return 4;
     }
+
+    public int getElementType() {
+        return 0x1406; // GL_FLOAT
+    }
 }

@@ -30,4 +30,7 @@ public interface HasArrayBufferView {
     /** Returns the element size in bytes (e.g. 4 for a FloatBuffer and 1 for a ByteBuffer). */
     int getElementSize();
 
+    /** Returns the open GL element type constant corresponding to the buffer contents. */
+    int getElementType();
+
 }

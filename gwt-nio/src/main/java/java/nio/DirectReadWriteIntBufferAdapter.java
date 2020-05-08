@@ -166,4 +166,9 @@ final class DirectReadWriteIntBufferAdapter extends IntBuffer implements HasArra
 	public int getElementSize() {
 		return 4;
 	}
+
+    @Override
+    public int getElementType() {
+        return 0x1404; // GL_INT
+    }
 }

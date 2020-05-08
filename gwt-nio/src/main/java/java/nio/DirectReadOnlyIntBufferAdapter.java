@@ -145,4 +145,9 @@ final class DirectReadOnlyIntBufferAdapter extends IntBuffer implements HasArray
     public int getElementSize() {
         return 4;
     }
+
+    @Override
+    public int getElementType() {
+        return 0x1404; // GL_INT
+    }
 }

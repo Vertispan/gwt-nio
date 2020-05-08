@@ -141,4 +141,8 @@ final class DirectReadOnlyShortBufferAdapter extends ShortBuffer implements HasA
 	public int getElementSize() {
 		return 2;
 	}
+
+    public int getElementType() {
+        return 0x1402; // GL_SHORT
+    }
 }

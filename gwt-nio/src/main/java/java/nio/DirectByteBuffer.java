@@ -251,4 +251,9 @@ public abstract class DirectByteBuffer extends BaseByteBuffer implements HasArra
             byteArray.setAt(baseOffset, (double) (value & 0xFF));
         }
     }
+
+    @Override
+    public int getElementType() {
+        return 0x1400; // GL_BYTE
+    }
 }
