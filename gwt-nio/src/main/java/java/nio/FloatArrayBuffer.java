@@ -65,7 +65,7 @@ abstract class FloatArrayBuffer extends FloatBuffer {
 
     public final FloatBuffer get(float[] dest, int off, int len) {
         int length = dest.length;
-        if (off < 0 || len < 0 || (long)off + (long)len > length) {
+        if (off < 0 || len < 0 || off + len > length) {
             throw new IndexOutOfBoundsException();
         }
         if (len > remaining()) {

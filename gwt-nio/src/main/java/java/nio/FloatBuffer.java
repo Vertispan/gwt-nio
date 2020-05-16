@@ -94,7 +94,7 @@ public abstract class FloatBuffer extends Buffer implements Comparable<FloatBuff
                 if (array == null) {
                         throw new NullPointerException();
                 }
-                if (start < 0 || len < 0 || (long)start + (long)len > array.length) {
+                if (start < 0 || len < 0 || start + len > array.length) {
                         throw new IndexOutOfBoundsException();
                 }
 
@@ -320,7 +320,7 @@ public abstract class FloatBuffer extends Buffer implements Comparable<FloatBuff
      */
     public FloatBuffer get(float[] dest, int off, int len) {
         int length = dest.length;
-        if (off < 0 || len < 0 || (long)off + (long)len > length) {
+        if (off < 0 || len < 0 || off + len > length) {
             throw new IndexOutOfBoundsException();
         }
         
@@ -482,7 +482,7 @@ public abstract class FloatBuffer extends Buffer implements Comparable<FloatBuff
      */
     public FloatBuffer put(float[] src, int off, int len) {
         int length = src.length;
-        if (off < 0 || len < 0 || (long)off + (long)len > length) {
+        if (off < 0 || len < 0 || off + len > length) {
             throw new IndexOutOfBoundsException();
         }
         

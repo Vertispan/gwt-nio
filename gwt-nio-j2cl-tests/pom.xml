@@ -108,6 +108,7 @@
         <artifactId>j2cl-maven-plugin</artifactId>
         <version>${maven.j2cl.plugin}</version>
         <configuration>
+          <testJsZip>com.vertispan.j2cl:closure-test:zip:jszip:0.7-20200424.004055-5</testJsZip>
           <compilationLevel>ADVANCED</compilationLevel>
           <!--                <compilationLevel>BUNDLE</compilationLevel>-->
         </configuration>

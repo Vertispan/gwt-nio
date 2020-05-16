@@ -96,7 +96,7 @@ public abstract class CharBuffer extends Buffer implements Comparable<CharBuffer
     public static CharBuffer wrap(char[] array, int start, int len) {
         int length = array.length;
         if ((start < 0) || (len < 0)
-                || (long) start + (long) len > length) {
+                || start + len > length) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -391,7 +391,7 @@ public abstract class CharBuffer extends Buffer implements Comparable<CharBuffer
      */
     public CharBuffer get(char[] dest, int off, int len) {
         int length = dest.length;
-        if ((off < 0 ) || (len < 0) || (long)off + (long)len > length) {
+        if ((off < 0 ) || (len < 0) || off + len > length) {
             throw new IndexOutOfBoundsException();
         }
         
@@ -562,7 +562,7 @@ public abstract class CharBuffer extends Buffer implements Comparable<CharBuffer
      */
     public CharBuffer put(char[] src, int off, int len) {
         int length = src.length;
-        if ((off < 0 ) || (len < 0) || (long)off + (long)len > length) {
+        if ((off < 0 ) || (len < 0) || off + len > length) {
             throw new IndexOutOfBoundsException();
         }
         

@@ -65,7 +65,7 @@ abstract class LongArrayBuffer extends LongBuffer {
 
     public final LongBuffer get(long[] dest, int off, int len) {
         int length = dest.length;
-        if (off < 0 || len < 0 || (long)len + (long)off > length) {
+        if (off < 0 || len < 0 || len + off > length) {
             throw new IndexOutOfBoundsException();
         }
         if (len > remaining()) {

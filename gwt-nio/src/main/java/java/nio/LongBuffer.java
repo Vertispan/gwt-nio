@@ -92,7 +92,7 @@ public abstract class LongBuffer extends Buffer implements Comparable<LongBuffer
                 if (array == null) {
                         throw new NullPointerException();
                 }
-                if (start < 0 || len < 0 || (long)len + (long)start > array.length) {
+                if (start < 0 || len < 0 || len + start > array.length) {
                         throw new IndexOutOfBoundsException();
                 }
 
@@ -316,7 +316,7 @@ public abstract class LongBuffer extends Buffer implements Comparable<LongBuffer
      */
     public LongBuffer get(long[] dest, int off, int len) {
         int length = dest.length;
-        if (off < 0 || len < 0 || (long)len + (long)off > length) {
+        if (off < 0 || len < 0 || len + off > length) {
             throw new IndexOutOfBoundsException();
         }
         
@@ -479,7 +479,7 @@ public abstract class LongBuffer extends Buffer implements Comparable<LongBuffer
      */
     public LongBuffer put(long[] src, int off, int len) {
         int length = src.length;
-        if (off < 0 || len < 0 || (long)len + (long)off > length) {
+        if (off < 0 || len < 0 || len + off > length) {
             throw new IndexOutOfBoundsException();
         }
         

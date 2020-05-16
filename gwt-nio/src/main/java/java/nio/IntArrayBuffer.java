@@ -65,7 +65,7 @@ abstract class IntArrayBuffer extends IntBuffer {
 
     public final IntBuffer get(int[] dest, int off, int len) {
         int length = dest.length;
-        if (off < 0 || len < 0 || (long)len + (long)off > length) {
+        if (off < 0 || len < 0 || len + off > length) {
             throw new IndexOutOfBoundsException();
         }       
         if (len > remaining()) {

@@ -133,7 +133,7 @@ public final class DirectReadWriteByteBuffer extends DirectByteBuffer {
      * @see java.nio.ByteBuffer#put(byte[], int, int)
      */
     public ByteBuffer put(byte[] src, int off, int len) {
-        if (off < 0 || len < 0 || (long)off + (long)len > src.length) {
+        if (off < 0 || len < 0 || off + len > src.length) {
             throw new IndexOutOfBoundsException();
         }
         if (len > remaining()) {
