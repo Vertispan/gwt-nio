@@ -955,4 +955,9 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
     public boolean isReadOnly() {
         return false;
     }
+
+    @Override
+    public final byte[] array() {
+        return (byte[]) super.array();
+    }
 }

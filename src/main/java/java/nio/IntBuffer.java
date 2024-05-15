@@ -395,4 +395,9 @@ public final class IntBuffer extends Buffer
     public boolean isReadOnly() {
         return false;
     }
+
+    @Override
+    public final int[] array() {
+        return (int[]) super.array();
+    }
 }

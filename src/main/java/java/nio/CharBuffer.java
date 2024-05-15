@@ -490,4 +490,9 @@ public abstract class CharBuffer extends Buffer
         target.put(chars);
         return result;
     }
+
+    @Override
+    public final char[] array() {
+        return (char[]) super.array();
+    }
 }

@@ -391,4 +391,9 @@ public final class FloatBuffer extends Buffer
     public boolean isReadOnly() {
         return false;
     }
+
+    @Override
+    public final float[] array() {
+        return (float[]) super.array();
+    }
 }

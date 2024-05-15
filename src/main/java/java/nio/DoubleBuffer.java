@@ -332,4 +332,9 @@ public abstract class DoubleBuffer extends Buffer implements Comparable<DoubleBu
         buf.append(limit());
         return buf.toString();
     }
+
+    @Override
+    public final double[] array() {
+        return (double[]) super.array();
+    }
 }

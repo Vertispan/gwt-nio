@@ -388,4 +388,9 @@ public final class ShortBuffer extends Buffer
     public boolean isReadOnly() {
         return false;
     }
+
+    @Override
+    public final short[] array() {
+        return (short[]) super.array();
+    }
 }
