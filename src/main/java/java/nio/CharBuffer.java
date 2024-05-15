@@ -55,29 +55,6 @@ public abstract class CharBuffer extends Buffer
         super(capacity);
     }
 
-    /** Returns the char array which this buffer is based on, if there is one.
-     *
-     * @return the char array which this buffer is based on.
-     * @exception ReadOnlyBufferException if this buffer is based on an array, but it is read-only.
-     * @exception UnsupportedOperationException if this buffer is not based on an array.
-     */
-    public final char[] array () {
-        return protectedArray();
-    }
-
-    /** Returns the offset of the char array which this buffer is based on, if there is one.
-     * <p>
-     * The offset is the index of the array corresponds to the zero position of the buffer.
-     * </p>
-     *
-     * @return the offset of the char array which this buffer is based on.
-     * @exception ReadOnlyBufferException if this buffer is based on an array but it is read-only.
-     * @exception UnsupportedOperationException if this buffer is not based on an array.
-     */
-    public final int arrayOffset () {
-        return protectedArrayOffset();
-    }
-
     /** Returns a read-only buffer that shares its content with this buffer.
      * <p> The returned buffer is guaranteed to be a new instance, even if this buffer is read-only
      * itself. The new buffer's position, limit, capacity and mark are the same as this buffer's.
@@ -236,15 +213,6 @@ public abstract class CharBuffer extends Buffer
      */
     public abstract char get (int index);
 
-    /** Indicates whether this buffer is based on a char array and is read/write.
-     *
-     * @return {@code true} if this buffer is based on a byte array and provides read/write access,
-     * {@code false} otherwise.
-     */
-    public final boolean hasArray () {
-        return protectedHasArray();
-    }
-
     /** Calculates this buffer's hash code from the remaining chars. The position, limit, capacity
      * and mark don't affect the hash code.
      *
@@ -258,16 +226,6 @@ public abstract class CharBuffer extends Buffer
         }
         return hash;
     }
-
-    /** Indicates whether this buffer is direct. A direct buffer will try its best to take
-     * advantage of native memory APIs and it may not stay in the Java heap, so it is not affected
-     * by garbage collection.
-     * <p> A char buffer is direct if it is based on a byte buffer and the byte buffer is direct.
-     * </p>
-     *
-     * @return {@code true} if this buffer is direct, {@code false} otherwise.
-     */
-    public abstract boolean isDirect ();
 
     /** Returns the number of remaining chars.
      *
@@ -284,21 +242,6 @@ public abstract class CharBuffer extends Buffer
      * @return the byte order used by this buffer when converting chars from/to bytes.
      */
     public abstract ByteOrder order ();
-
-    /** Child class implements this method to realize {@code array()}.
-     *
-     * @see #array() */
-    abstract char[] protectedArray ();
-
-    /** Child class implements this method to realize {@code arrayOffset()}.
-     *
-     * @see #arrayOffset() */
-    abstract int protectedArrayOffset ();
-
-    /** Child class implements this method to realize {@code hasArray()}.
-     *
-     * @see #hasArray() */
-    abstract boolean protectedHasArray ();
 
     /** Writes the given char to the current position and increases the position by 1.
      *

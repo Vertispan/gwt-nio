@@ -221,15 +221,6 @@ public final class FloatBuffer extends Buffer
         return (float)(double)floatArray.getAt(index);
     }
 
-    /** Indicates whether this buffer is based on a float array and is read/write.
-     *
-     * @return {@code true} if this buffer is based on a float array and provides read/write
-     * access, {@code false} otherwise.
-     */
-    public final boolean hasArray () {
-        return false;
-    }
-
 // /**
 // * Calculates this buffer's hash code from the remaining chars. The
 // * position, limit, capacity and mark don't affect the hash code.
@@ -245,18 +236,6 @@ public final class FloatBuffer extends Buffer
 // }
 // return hash;
 // }
-
-    /** Indicates whether this buffer is direct. A direct buffer will try its best to take
-     * advantage of native memory APIs and it may not stay in the Java heap, so it is not affected
-     * by garbage collection.
-     * <p> A float buffer is direct if it is based on a byte buffer and the byte buffer is direct.
-     * </p>
-     *
-     * @return {@code true} if this buffer is direct, {@code false} otherwise.
-     */
-    public boolean isDirect () {
-        return true;
-    }
 
     /** Returns the byte order used by this buffer when converting floats from/to bytes.
      * <p> If this buffer is not based on a byte buffer, then always return the platform's native
