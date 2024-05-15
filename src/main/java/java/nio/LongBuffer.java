@@ -330,4 +330,9 @@ public abstract class LongBuffer extends Buffer implements Comparable<LongBuffer
         buf.append(limit());
         return buf.toString();
     }
+
+    @Override
+    public final long[] array() {
+        return (long[]) super.array();
+    }
 }
