@@ -13,14 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package java.nio;
+package org.gwtproject.nio;
 
 import elemental2.core.Float32Array;
 import elemental2.core.Float64Array;
 import elemental2.core.Int32Array;
 import elemental2.core.Int8Array;
 
-class Numbers {
+import java.nio.ByteOrder;
+
+public class Numbers {
     static Int8Array wba = new Int8Array(8);
     static Int32Array wia = new Int32Array(wba.buffer, 0, 2);
     static Float32Array wfa = new Float32Array(wba.buffer, 0, 2);

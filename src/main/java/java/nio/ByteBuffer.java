@@ -21,6 +21,7 @@ import elemental2.core.ArrayBuffer;
 import elemental2.core.ArrayBufferView;
 import elemental2.core.Int8Array;
 import org.gwtproject.nio.HasArrayBufferView;
+import org.gwtproject.nio.Numbers;
 import org.gwtproject.nio.TypedArrayHelper;
 
 /** A buffer for bytes.
