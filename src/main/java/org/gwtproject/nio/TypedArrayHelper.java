@@ -28,6 +28,9 @@ public class TypedArrayHelper {
     public static ByteBuffer wrap(ArrayBuffer ab) {
         return ByteBuffer.wrapArrayBuffer(ab);
     }
+    public static ByteBuffer wrap(ArrayBufferView ab) {
+        return ByteBuffer.wrapArrayBuffer(ab.buffer, ab.byteLength, ab.byteOffset);
+    }
     public static ArrayBufferView unwrap(ByteBuffer bb) {
         return bb.getTypedArray();
     }

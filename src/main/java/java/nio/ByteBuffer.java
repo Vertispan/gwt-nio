@@ -66,6 +66,9 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
     public static ByteBuffer wrapArrayBuffer(ArrayBuffer arrayBuffer) {
         return new ByteBuffer(arrayBuffer);
     }
+    public static ByteBuffer wrapArrayBuffer(ArrayBuffer arrayBuffer, int capacity, int offset) {
+        return new ByteBuffer(arrayBuffer, capacity, offset);
+    }
     public ByteBuffer wrap(ArrayBuffer arrayBuffer) {
         return new ByteBuffer(arrayBuffer);
     }
