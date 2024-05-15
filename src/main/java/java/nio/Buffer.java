@@ -239,6 +239,7 @@ public abstract class Buffer {
     public int arrayOffset() {
         throw new UnsupportedOperationException();
     }
+
     /**
      * Always throws UnsupportedOperationException.
      */

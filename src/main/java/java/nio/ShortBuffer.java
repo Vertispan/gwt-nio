@@ -217,26 +217,6 @@ public final class ShortBuffer extends Buffer
         return (short)(double)shortArray.getAt(index);
     }
 
-    /** Indicates whether this buffer is based on a short array and is read/write.
-     *
-     * @return {@code true} if this buffer is based on a short array and provides read/write
-     * access, {@code false} otherwise.
-     */
-    @Override
-    public final boolean hasArray () {
-        return false;
-    }
-
-    @Override
-    public final int arrayOffset() {
-        throw new UnsupportedOperationException("arrayOffset");
-    }
-
-    @Override
-    public final short[] array() {
-        throw new UnsupportedOperationException("array");
-    }
-
     /** Calculates this buffer's hash code from the remaining chars. The position, limit, capacity
      * and mark don't affect the hash code.
      *
