@@ -222,8 +222,19 @@ public final class ShortBuffer extends Buffer
      * @return {@code true} if this buffer is based on a short array and provides read/write
      * access, {@code false} otherwise.
      */
+    @Override
     public final boolean hasArray () {
         return false;
+    }
+
+    @Override
+    public final int arrayOffset() {
+        throw new UnsupportedOperationException("arrayOffset");
+    }
+
+    @Override
+    public final short[] array() {
+        throw new UnsupportedOperationException("array");
     }
 
     /** Calculates this buffer's hash code from the remaining chars. The position, limit, capacity
@@ -238,18 +249,6 @@ public final class ShortBuffer extends Buffer
             hash = hash + get(myPosition++);
         }
         return hash;
-    }
-
-    /** Indicates whether this buffer is direct. A direct buffer will try its best to take
-     * advantage of native memory APIs and it may not stay in the Java heap, so it is not affected
-     * by garbage collection.
-     * <p> A short buffer is direct if it is based on a byte buffer and the byte buffer is direct.
-     * </p>
-     *
-     * @return {@code true} if this buffer is direct, {@code false} otherwise.
-     */
-    public boolean isDirect () {
-        return true;
     }
 
     /** Returns the byte order used by this buffer when converting shorts from/to bytes.

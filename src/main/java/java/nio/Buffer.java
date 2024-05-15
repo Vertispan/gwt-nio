@@ -223,4 +223,34 @@ public abstract class Buffer {
         mark = UNSET_MARK;
         return this;
     }
+
+    /**
+     * Tells whether or not this buffer is backed by an accessible array.
+     *
+     * @return Always returns false.
+     */
+    public boolean hasArray() {
+        return false;
+    }
+
+    /**
+     * Always throws UnsupportedOperationException.
+     */
+    public int arrayOffset() {
+        throw new UnsupportedOperationException();
+    }
+    /**
+     * Always throws UnsupportedOperationException.
+     */
+    public Object array() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Tells whether or not this buffer is direct.
+     * @return Always returns true.
+     */
+    public boolean isDirect() {
+        return true;
+    }
 }

@@ -19,7 +19,6 @@ package java.nio;
 
 import elemental2.core.ArrayBuffer;
 import elemental2.core.ArrayBufferView;
-import elemental2.core.Float64Array;
 import elemental2.core.Int8Array;
 import org.gwtproject.nio.HasArrayBufferView;
 import org.gwtproject.nio.TypedArrayHelper;
@@ -541,15 +540,6 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
         return bytes;
     }
 
-    /** Indicates whether this buffer is based on a byte array and provides read/write access.
-     *
-     * @return {@code true} if this buffer is based on a byte array and provides read/write access,
-     * {@code false} otherwise.
-     */
-    public final boolean hasArray () {
-        return false;
-    }
-
     /** Calculates this buffer's hash code from the remaining chars. The position, limit, capacity
      * and mark don't affect the hash code.
      *
@@ -562,14 +552,6 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
             hash = hash + get(myPosition++);
         }
         return hash;
-    }
-
-    /** Indicates whether this buffer is direct.
-     *
-     * @return {@code true} if this buffer is direct, {@code false} otherwise.
-     */
-    public final boolean isDirect () {
-        return true;
     }
 
     /** Returns the byte order used by this buffer when converting bytes from/to other primitive
