@@ -89,6 +89,7 @@ public final class FloatBuffer extends Buffer
      *         {@code otherBuffer}; a positive value if this is greater than {@code otherBuffer}.
      * @exception ClassCastException if {@code otherBuffer} is not a float buffer.
      */
+    @SuppressWarnings("IdentityBinaryExpression")
     public int compareTo (FloatBuffer otherBuffer) {
         int compareRemaining = (remaining() < otherBuffer.remaining()) ?
                 remaining() : otherBuffer.remaining();
@@ -137,6 +138,7 @@ public final class FloatBuffer extends Buffer
      * @param other the object to compare with this float buffer.
      * @return {@code true} if this float buffer is equal to {@code other}, {@code false} otherwise.
      */
+    @SuppressWarnings({"EqualsHashCode", "IdentityBinaryExpression"})
     public boolean equals (Object other) {
         if (!(other instanceof FloatBuffer)) {
             return false;

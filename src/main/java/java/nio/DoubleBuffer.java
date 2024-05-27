@@ -79,6 +79,7 @@ public abstract class DoubleBuffer extends Buffer implements Comparable<DoubleBu
      *         other}; a positive value if this is greater than {@code other}.
      * @exception ClassCastException if {@code other} is not a double buffer.
      */
+    @SuppressWarnings("IdentityBinaryExpression")
     public int compareTo (DoubleBuffer otherBuffer) {
         int compareRemaining = (remaining() < otherBuffer.remaining()) ?
                 remaining() : otherBuffer.remaining();
@@ -122,6 +123,8 @@ public abstract class DoubleBuffer extends Buffer implements Comparable<DoubleBu
      * @param other the object to compare with this double buffer.
      * @return {@code true} if this double buffer is equal to {@code other}, {@code false} otherwise.
      */
+    @SuppressWarnings({"EqualsHashCode", "IdentityBinaryExpression"})
+
     public boolean equals (Object other) {
         if (!(other instanceof DoubleBuffer)) {
             return false;
