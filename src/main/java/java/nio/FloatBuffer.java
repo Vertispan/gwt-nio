@@ -19,6 +19,7 @@ package java.nio;
 
 import elemental2.core.ArrayBufferView;
 import elemental2.core.Float32Array;
+import jsinterop.base.Js;
 
 /** A buffer of floats.
  * <p>
@@ -110,6 +111,41 @@ public final class FloatBuffer extends Buffer
         }
         // END android-changed
         return remaining() - otherBuffer.remaining();
+    }
+
+    @Override
+    public FloatBuffer limit(int newLimit) {
+        return Js.uncheckedCast(super.limit(newLimit));
+    }
+
+    @Override
+    public FloatBuffer position(int newPosition) {
+        return Js.uncheckedCast(super.position(newPosition));
+    }
+
+    @Override
+    public FloatBuffer mark() {
+        return Js.uncheckedCast(super.mark());
+    }
+
+    @Override
+    public FloatBuffer reset() {
+        return Js.uncheckedCast(super.reset());
+    }
+
+    @Override
+    public FloatBuffer clear() {
+        return Js.uncheckedCast(super.clear());
+    }
+
+    @Override
+    public FloatBuffer flip() {
+        return Js.uncheckedCast(super.flip());
+    }
+
+    @Override
+    public FloatBuffer rewind() {
+        return Js.uncheckedCast(super.rewind());
     }
 
     /** Returns a duplicated buffer that shares its content with this buffer.

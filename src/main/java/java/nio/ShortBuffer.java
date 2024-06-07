@@ -19,6 +19,7 @@ package java.nio;
 
 import elemental2.core.ArrayBufferView;
 import elemental2.core.Int16Array;
+import jsinterop.base.Js;
 
 /** A buffer of shorts.
  * <p> A short buffer can be created in either of the following ways: </p>
@@ -106,6 +107,41 @@ public final class ShortBuffer extends Buffer
             compareRemaining--;
         }
         return remaining() - otherBuffer.remaining();
+    }
+
+    @Override
+    public ShortBuffer limit(int newLimit) {
+        return Js.uncheckedCast(super.limit(newLimit));
+    }
+
+    @Override
+    public ShortBuffer position(int newPosition) {
+        return Js.uncheckedCast(super.position(newPosition));
+    }
+
+    @Override
+    public ShortBuffer mark() {
+        return Js.uncheckedCast(super.mark());
+    }
+
+    @Override
+    public ShortBuffer reset() {
+        return Js.uncheckedCast(super.reset());
+    }
+
+    @Override
+    public ShortBuffer clear() {
+        return Js.uncheckedCast(super.clear());
+    }
+
+    @Override
+    public ShortBuffer flip() {
+        return Js.uncheckedCast(super.flip());
+    }
+
+    @Override
+    public ShortBuffer rewind() {
+        return Js.uncheckedCast(super.rewind());
     }
 
     /** Returns a duplicated buffer that shares its content with this buffer.

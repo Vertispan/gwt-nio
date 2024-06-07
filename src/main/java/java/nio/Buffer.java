@@ -86,7 +86,7 @@ public abstract class Buffer {
      *
      * @return this buffer.
      */
-    public final Buffer clear () {
+    public Buffer clear() {
         position = 0;
         mark = UNSET_MARK;
         limit = capacity;
@@ -100,7 +100,7 @@ public abstract class Buffer {
      *
      * @return this buffer.
      */
-    public final Buffer flip () {
+    public Buffer flip() {
         limit = position;
         position = 0;
         mark = UNSET_MARK;
@@ -139,7 +139,7 @@ public abstract class Buffer {
      * @return this buffer.
      * @exception IllegalArgumentException if <code>newLimit</code> is invalid.
      */
-    public final Buffer limit (int newLimit) {
+    public Buffer limit(int newLimit) {
         if (newLimit < 0 || newLimit > capacity) {
             throw new IllegalArgumentException();
         }
@@ -159,7 +159,7 @@ public abstract class Buffer {
      *
      * @return this buffer.
      */
-    public final Buffer mark () {
+    public Buffer mark() {
         mark = position;
         return this;
     }
@@ -179,7 +179,7 @@ public abstract class Buffer {
      * @return this buffer.
      * @exception IllegalArgumentException if <code>newPosition</code> is invalid.
      */
-    public final Buffer position (int newPosition) {
+    public Buffer position(int newPosition) {
         if (newPosition < 0 || newPosition > limit) {
             throw new IllegalArgumentException();
         }
@@ -204,7 +204,7 @@ public abstract class Buffer {
      * @return this buffer.
      * @exception InvalidMarkException if the mark is not set.
      */
-    public final Buffer reset () {
+    public Buffer reset() {
         if (mark == UNSET_MARK) {
             throw new InvalidMarkException();
         }
@@ -218,7 +218,7 @@ public abstract class Buffer {
      *
      * @return this buffer.
      */
-    public final Buffer rewind () {
+    public Buffer rewind() {
         position = 0;
         mark = UNSET_MARK;
         return this;
