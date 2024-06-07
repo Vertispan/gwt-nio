@@ -20,6 +20,7 @@ package java.nio;
 import elemental2.core.ArrayBuffer;
 import elemental2.core.ArrayBufferView;
 import elemental2.core.Int8Array;
+import jsinterop.base.Js;
 import org.gwtproject.nio.HasArrayBufferView;
 import org.gwtproject.nio.Numbers;
 import org.gwtproject.nio.TypedArrayHelper;
@@ -556,6 +557,41 @@ public final class ByteBuffer extends Buffer implements Comparable<ByteBuffer>, 
             hash = hash + get(myPosition++);
         }
         return hash;
+    }
+
+    @Override
+    public ByteBuffer limit(int newLimit) {
+        return Js.uncheckedCast(super.limit(newLimit));
+    }
+
+    @Override
+    public ByteBuffer position(int newPosition) {
+        return Js.uncheckedCast(super.position(newPosition));
+    }
+
+    @Override
+    public ByteBuffer mark() {
+        return Js.uncheckedCast(super.mark());
+    }
+
+    @Override
+    public ByteBuffer reset() {
+        return Js.uncheckedCast(super.reset());
+    }
+
+    @Override
+    public ByteBuffer clear() {
+        return Js.uncheckedCast(super.clear());
+    }
+
+    @Override
+    public ByteBuffer flip() {
+        return Js.uncheckedCast(super.flip());
+    }
+
+    @Override
+    public ByteBuffer rewind() {
+        return Js.uncheckedCast(super.rewind());
     }
 
     /** Returns the byte order used by this buffer when converting bytes from/to other primitive
