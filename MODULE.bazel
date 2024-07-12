@@ -1,0 +1,4 @@
+module(
+    name = "gwt-nio",
+    repo_name = "com_vertispan_nio",
+)

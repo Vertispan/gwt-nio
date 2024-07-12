@@ -1,0 +1,30 @@
+workspace(name = "com_vertispan_nio")
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+# Load j2cl repository
+http_archive(
+    name = "com_google_j2cl",
+    strip_prefix = "j2cl-20230718",
+    url = "https://github.com/google/j2cl/archive/refs/tags/v20230718.zip",
+)
+
+load("@com_google_j2cl//build_defs:repository.bzl", "load_j2cl_repo_deps")
+load_j2cl_repo_deps()
+
+load("@com_google_j2cl//build_defs:workspace.bzl", "setup_j2cl_workspace")
+setup_j2cl_workspace()
+
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+
+http_archive(
+    name = "com_google_elemental2",
+    strip_prefix = "elemental2-1.2.1",
+    url = "https://github.com/google/elemental2/archive/1.2.1.zip",
+)
+
+load("@com_google_elemental2//build_defs:repository.bzl", "load_elemental2_repo_deps")
+load_elemental2_repo_deps()
+
+load("@com_google_elemental2//build_defs:workspace.bzl", "setup_elemental2_workspace")
+setup_elemental2_workspace()
